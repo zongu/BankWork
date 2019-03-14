@@ -63,5 +63,25 @@ namespace BankWork.Persistent
 
             return this.collection.UpdateOne(filter, update, new UpdateOptions() { IsUpsert = false }).MatchedCount > 0;
         }
+
+        public IEnumerable<Account> MoreThanDeposit(long points)
+        {
+            var filter = Builders<Account>.Filter
+                .ElemMatch(
+                    p => p.DepositRecords,
+                    Builders<DepositRecord>.Filter.Gte(x => x.Points, points));
+
+            return this.collection.Find(filter).ToList();
+        }
+
+        public IEnumerable<Account> MoreThanDrawal(long points)
+        {
+            var filter = Builders<Account>.Filter
+                .ElemMatch(
+                    p => p.DepositRecords,
+                    Builders<DepositRecord>.Filter.Lte(x => x.Points, -1 * points));
+
+            return this.collection.Find(filter).ToList();
+        }
     }
 }

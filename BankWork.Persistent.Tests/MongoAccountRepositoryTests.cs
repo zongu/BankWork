@@ -69,5 +69,75 @@ namespace BankWork.Persistent.Tests
             var updateResult = this.repo.Update(account);
             Assert.IsFalse(updateResult);
         }
+
+        [TestMethod]
+        public void MoreThanDepositTests()
+        {
+            var account = Account.GenerateInstance("rdtest001");
+            var insertResult = this.repo.Insert(account);
+            Assert.IsTrue(insertResult);
+
+            account.Deposit(1000);
+
+            var updateResult = this.repo.Update(account);
+            Assert.IsTrue(updateResult);
+
+            var account1 = Account.GenerateInstance("rdtest002");
+            var insertResult1 = this.repo.Insert(account1);
+            Assert.IsTrue(insertResult1);
+
+            account1.Deposit(500);
+
+            var updateResult1 = this.repo.Update(account1);
+            Assert.IsTrue(updateResult1);
+
+            var queryResult = this.repo.MoreThanDeposit(1000);
+            Assert.IsNotNull(queryResult);
+            Assert.AreEqual(queryResult.Count(), 1);
+            Assert.AreEqual(queryResult.FirstOrDefault().Name, "rdtest001");
+
+            var queryResult1 = this.repo.MoreThanDeposit(500);
+            Assert.IsNotNull(queryResult1);
+            Assert.AreEqual(queryResult1.Count(), 2);
+        }
+
+        [TestMethod]
+        public void MoreThanDrawalTests()
+        {
+            var account = Account.GenerateInstance("rdtest001");
+            var insertResult = this.repo.Insert(account);
+            Assert.IsTrue(insertResult);
+
+            account.Deposit(1000);
+
+            var updateResult = this.repo.Update(account);
+            Assert.IsTrue(updateResult);
+
+            var account1 = Account.GenerateInstance("rdtest002");
+            var insertResult1 = this.repo.Insert(account1);
+            Assert.IsTrue(insertResult1);
+
+            account1.Deposit(500);
+
+            var updateResult1 = this.repo.Update(account1);
+            Assert.IsTrue(updateResult1);
+
+            account.Deposit(-500);
+            var drawalResult = this.repo.Update(account);
+            Assert.IsTrue(drawalResult);
+
+            account1.Deposit(-100);
+            var drawalResult1 = this.repo.Update(account1);
+            Assert.IsTrue(drawalResult1);
+
+            var queryResult = this.repo.MoreThanDrawal(500);
+            Assert.IsNotNull(queryResult);
+            Assert.AreEqual(queryResult.Count(), 1);
+            Assert.AreEqual(queryResult.FirstOrDefault().Name, "rdtest001");
+            
+            var queryResult1 = this.repo.MoreThanDrawal(100);
+            Assert.IsNotNull(queryResult1);
+            Assert.AreEqual(queryResult1.Count(), 2);
+        }
     }
 }

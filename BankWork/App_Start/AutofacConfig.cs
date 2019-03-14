@@ -9,7 +9,6 @@ namespace BankWork.App_Start
     using Autofac.Integration.WebApi;
     using BankWork.Applibs;
     using BankWork.Domain.Repository;
-    using BankWork.Domain.Service;
     using BankWork.Persistent;
     using MongoDB.Driver;
 

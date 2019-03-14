@@ -3,6 +3,7 @@ namespace BankWork
 {
     using System.Web.Http;
     using System.Web.Mvc;
+    using BankWork.App_Start;
 
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -10,6 +11,7 @@ namespace BankWork
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutofacConfig.RegisterDependies();
         }
     }
 }
