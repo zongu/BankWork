@@ -3,3 +3,16 @@
 ################################################################################
 
 /.vs
+/BankWork/bin
+/BankWork/obj
+/BankWork.Domain/bin
+/BankWork.Domain/obj
+/BankWork.Domain.Tests/bin
+/BankWork.Domain.Tests/obj
+/BankWork.Persistent/bin
+/BankWork.Persistent/obj
+/BankWork.Persistent.Tests/bin
+/BankWork.Persistent.Tests/obj
+/BankWork.Tests/bin
+/BankWork.Tests/obj
+/packages
