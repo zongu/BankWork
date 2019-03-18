@@ -59,7 +59,8 @@ namespace BankWork.Persistent
                 );
 
             var update = Builders<Account>.Update
-                 .Set(p => p.DepositRecords, account.DepositRecords);
+                 .Set(p => p.DepositRecords, account.DepositRecords)
+                 .Inc(p => p.SerialNo, 1);
 
             return this.collection.UpdateOne(filter, update, new UpdateOptions() { IsUpsert = false }).MatchedCount > 0;
         }

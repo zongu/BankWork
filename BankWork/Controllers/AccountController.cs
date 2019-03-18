@@ -5,6 +5,7 @@ namespace BankWork.Controllers
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+    using Autofac;
     using BankWork.Domain.Model;
     using BankWork.Domain.Repository;
     using BankWork.Domain.Service;

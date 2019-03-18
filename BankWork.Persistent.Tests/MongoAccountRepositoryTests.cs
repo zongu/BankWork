@@ -112,6 +112,8 @@ namespace BankWork.Persistent.Tests
 
             var updateResult = this.repo.Update(account);
             Assert.IsTrue(updateResult);
+            account = this.repo.GetAccountByName(account.Name);
+            Assert.IsNotNull(account);
 
             var account1 = Account.GenerateInstance("rdtest002");
             var insertResult1 = this.repo.Insert(account1);
@@ -121,14 +123,20 @@ namespace BankWork.Persistent.Tests
 
             var updateResult1 = this.repo.Update(account1);
             Assert.IsTrue(updateResult1);
+            account1 = this.repo.GetAccountByName(account1.Name);
+            Assert.IsNotNull(account1);
 
             account.Deposit(-500);
             var drawalResult = this.repo.Update(account);
             Assert.IsTrue(drawalResult);
+            account = this.repo.GetAccountByName(account.Name);
+            Assert.IsNotNull(account);
 
             account1.Deposit(-100);
             var drawalResult1 = this.repo.Update(account1);
             Assert.IsTrue(drawalResult1);
+            account1 = this.repo.GetAccountByName(account1.Name);
+            Assert.IsNotNull(account1);
 
             var queryResult = this.repo.MoreThanDrawal(500);
             Assert.IsNotNull(queryResult);

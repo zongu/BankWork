@@ -16,3 +16,4 @@
 /BankWork.Tests/bin
 /BankWork.Tests/obj
 /packages
+/BankWork.Domain/*.user
