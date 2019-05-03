@@ -5,7 +5,6 @@ namespace BankWork.Controllers
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-    using Autofac;
     using BankWork.Domain.Model;
     using BankWork.Domain.Repository;
     using BankWork.Domain.Service;
@@ -14,12 +13,12 @@ namespace BankWork.Controllers
     {
         private IAccountRepository repo;
 
-        private AccountDepositOOC ooc;
+        private IAccountDepositOOC ooc;
 
-        public AccountController(IAccountRepository repo)
+        public AccountController(IAccountRepository repo, IAccountDepositOOC ooc)
         {
             this.repo = repo;
-            this.ooc = AccountDepositOOC.GenerateInstance(repo);
+            this.ooc = ooc;
         }
 
         [HttpGet]
@@ -74,9 +73,9 @@ namespace BankWork.Controllers
                 }
 
                 var depositResult = this.ooc.Deposit(account, input.Points);
-                if(depositResult == AccountDepositOOC.DepositResult.NotEnoughPoints)
+                if(depositResult == DepositResult.NotEnoughPoints)
                 {
-                    throw new Exception($"{nameof(AccountDepositOOC.DepositResult.NotEnoughPoints)}");
+                    throw new Exception($"{nameof(DepositResult.NotEnoughPoints)}");
                 }
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);

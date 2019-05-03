@@ -4,22 +4,13 @@ namespace BankWork.Domain.Service
     using BankWork.Domain.Model;
     using BankWork.Domain.Repository;
 
-    public class AccountDepositOOC
+    public class AccountDepositOOC : IAccountDepositOOC
     {
-        public enum DepositResult
-        {
-            Success,
-            NotEnoughPoints
-        }
-
         private IAccountRepository repo;
 
-        public static AccountDepositOOC GenerateInstance(IAccountRepository repo)
+        public AccountDepositOOC(IAccountRepository repo)
         {
-            return new AccountDepositOOC()
-            {
-                repo = repo
-            };
+            this.repo = repo;
         }
 
         public DepositResult Deposit(Account account, long points)

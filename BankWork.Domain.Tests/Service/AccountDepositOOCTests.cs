@@ -19,9 +19,9 @@ namespace BankWork.Domain.Tests.Service
                 .Returns(true)
                 .Verifiable();
 
-            var ooc = AccountDepositOOC.GenerateInstance(mock.Object);
+            var ooc = new AccountDepositOOC(mock.Object);
             var depositResult = ooc.Deposit(account, 123456);
-            Assert.AreEqual(depositResult, AccountDepositOOC.DepositResult.Success);
+            Assert.AreEqual(depositResult, DepositResult.Success);
         }
     }
 }
